@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/index1.css">
     <title>Document</title>
-    
-    <!-- <script src="https://unpkg.com/htmx.org@1.6.1"></script>
-    <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
 <body>
     <div class="header">
@@ -16,15 +13,24 @@
     </div>
     <div class="main">
         <div class="container1">
+            <h1>Record and Upload Audio</h1>
+
             <div class="div1">
-                <div class="t1">Upload from Files</div>
+                
+                <div class="t1">Upload from Files <button onclick="uploadFromFile()"><input type="file" id="uploadInput" accept="audio/*"></button>
+                </div>
             </div>
             <hr class="hr1">
             <div class="div1">
-                <div class="t1">Upload from Files</div>
+                <div class="t1">Record <!-- Button to record audio -->
+                    <button onclick="startRecording()">Record Now</button></div>
             </div>
-        </div>
-        
+        </div>  
+    
     </div>
+    <br><br>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/recorder-js/dist/recorder.js"></script>
+    <script src="{{ url_for('static', path='/index.js') }}"></script>
 </body>
 </html>
