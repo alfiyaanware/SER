@@ -13,16 +13,20 @@
     </div>
     <div class="main">
         <div class="container1">
-            <h1>Record and Upload Audio</h1>
+            <div style="margin-left: 55px;margin-top: 30px;">
+                <h1>Record and Upload Audio</h1>
+            </div>
 
             <div class="div1">
                 
-                <div class="t1">Upload from Files <button onclick="uploadFromFile()"><input type="file" id="uploadInput" accept="audio/*"></button>
+                <div class="t1"><button><input type="file" id="uploadInput" accept="audio/*"></button>
+                <div class="t1"><button onclick="uploadFromFile()">Submit</button>
+                    
                 </div>
             </div>
             <hr class="hr1">
             <div class="div1">
-                <div class="t1">Record <!-- Button to record audio -->
+                <div class="t1"> <!-- Button to record audio -->
                     <button onclick="startRecording()">Record Now</button></div>
             </div>
         </div>  
