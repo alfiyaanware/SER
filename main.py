@@ -15,19 +15,36 @@ def index(request: Request):
 
 @app.post("/process_audio/")
 async def process_audio(audio: UploadFile = File(...)):
-    # Implement audio processing logic here
-    # For example, you could save the audio file to a directory or perform some analysis
+    # Determine the directory where you want to save the uploaded files
+    print("inside pa")
+    save_directory = "audio_repository"
 
-    # For demonstration, we'll just save the file to a directory
-    file_path = os.path.join("audio_repository", "uploaded_audio.wav")
+    # Create the directory if it doesn't exist
+    os.makedirs(save_directory, exist_ok=True)
+
+    # Concatenate the directory path and the filename
+    file_path = os.path.join(save_directory, audio.filename)
+
+    # Save the uploaded file to the specified directory
     with open(file_path, "wb") as f:
         f.write(await audio.read())
 
-    # Returning 'OK' status
-    return {"message": "Audio processed successfully."}
+    # Returning 'OK' status along with the file path
+    return {"message": "Audio processed successfully.", "file_path": file_path}
 
 @app.get("/result/", response_class=HTMLResponse)
 async def show_result(request: Request):
     # Implement logic to display results
+    total_length = 314818 
+    frame_length = 2048
+    hop_length = 512
+    
+    folder_path = 'C:/Users/Alfiya Anware/Desktop/github/SER/audio_repository'
+
+    for subdir, dir, file in os.walk(folder_path):
+        for i in file:
+            print(os.path.join(subdir,i))
+    
+    file = '1001_ITS_NEU_XX.wav'
     # For now, let's display a simple message
     return templates.TemplateResponse("result.html", {"request": request, "message": "Result will be displayed here."})

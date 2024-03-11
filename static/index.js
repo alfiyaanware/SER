@@ -5,7 +5,7 @@ function uploadFromFile() {
 
     if (file) {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append('audio', file); // Ensure the field name matches the expected field name in the FastAPI endpoint
 
         fetch('/process_audio/', {
             method: 'POST',
@@ -13,15 +13,12 @@ function uploadFromFile() {
         })
         .then(response => {
             if (response.ok) {
-                // Assuming the server responds with JSON data indicating success
                 return response.json();
             } else {
                 throw new Error('Failed to process audio: ' + response.statusText);
             }
         })
         .then(data => {
-            // Assuming the server responds with a JSON object containing relevant data
-            // Redirect to the result page or handle the data accordingly
             window.location.href = '/result/';
         })
         .catch(error => console.error('Error:', error));
@@ -29,6 +26,7 @@ function uploadFromFile() {
         console.error('No file selected.');
     }
 }
+
 
 // Function to start recording audio
 function startRecording() {
