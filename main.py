@@ -116,6 +116,7 @@ async def show_result(request: Request):
     predictions = model.predict(X)
     y_pred_class = np.argmax(predictions, axis=1)
     pred=y_pred_class[0]
+    print(predictions)
     print(pred)
 
     labels={0: 'happy', 1: 'happy', 2: 'sad', 3:'fear', 4:'fear', 5:'sad', 6: 'happy'}
