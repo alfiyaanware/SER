@@ -4,9 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Processed Result</title>
+    <link rel="stylesheet" href="/static/index1.css">
+    <style>
+        #emotionEmoji {
+            font-size: 5em; 
+        }
+    </style>
 </head>
 <body>
-    <h1>Processed Result</h1>
-    <p>{{ message }}</p>
+    <div class="header">
+        <div class="text"><a style="color: white; text-decoration:none;" href="/">Voize</a></div>
+        <div class="text1"><a style="color: white; text-decoration:none;" href="/about">About us</a></div>
+    </div>
+    <div class="main" style="margin-top:60px; margin-left: 60px;">
+        <h1>Processed Result</h1><br>
+        <p>The emotion we recognised is: {{message}} </p> <span id="emotionEmoji"></span>
+    </div>
+    <script>
+        // Get the message from the template
+        var message = "{{ message }}";
+        
+        // Define a function to set the emoji based on the message
+        function setEmoji() {
+            var emojiElement = document.getElementById('emotionEmoji');
+            if (message.includes('sad')) {
+                emojiElement.textContent = '😢'; // Sad emoji
+            } else if (message.includes('happy')) {
+                emojiElement.textContent = '😊'; // Happy emoji
+            } else if (message.includes('fear')) {
+                emojiElement.textContent = '😨'; // Fear emoji
+            } else {
+                emojiElement.textContent = 'Unknown emotion'; // Default
+            }
+        }
+
+        // Call the function to set the emoji when the page loads
+        window.onload = setEmoji;
+    </script>
+
 </body>
 </html>

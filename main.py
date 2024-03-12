@@ -26,6 +26,10 @@ templates = Jinja2Templates(directory="templates")
 def index(request: Request):
     return templates.TemplateResponse("index1.html", {"request": request})
 
+@app.get('/about', response_class=HTMLResponse)
+def index(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request})
+
 @app.post("/process_audio/")
 async def process_audio(audio: UploadFile = File(...)):
     # Determine the directory where you want to save the uploaded files
