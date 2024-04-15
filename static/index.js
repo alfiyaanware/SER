@@ -32,3 +32,4 @@ function uploadFromFile() {
 function startRecording() {
     // Implement recording functionality here
 }
+

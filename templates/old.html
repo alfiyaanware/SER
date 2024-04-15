@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/index1.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="text">Voize</div>
+        <div class="text1"><a style="color: white; text-decoration:none;" href="/about">About us</a></div>
+    </div>
+    <div class="main">
+        <div class="container1">
+            <div style="margin-left: 36%;margin-top: 60px;">
+                <h1>Record and Upload Audio</h1>
+            </div>
+
+            <div class="div1">
+                <form id="uploadForm" enctype="multipart/form-data">
+                <div class="space"><button class="button button1"><input type="file" id="uploadInput" accept="audio/*"></button>
+                <div class="space"><button class="button button1" onclick="uploadFromFile()">Submit</button>
+                </form>
+                    
+                <!-- </div>
+            </div>
+            <br>
+            <hr class="hr1">
+            <div class="div1"> -->
+                <div class="space">
+                    <button class="button button1" onclick="startRecording()">Record Now</button>
+                </div>
+            </div>
+        </div>  
+    
+    </div>
+    <br><br>
+ 
+    <!-- <script src="https://cdn.jsdelivr.net/npm/recorder-js/dist/recorder.js"></script> -->
+    <script src="{{ url_for('static', path='/index.js') }}"></script>
+</body>
+</html>
