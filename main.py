@@ -8,12 +8,9 @@ import numpy as np
 from json_tricks import dump, load
 from audio_model import test
 from pydub import AudioSegment, effects
-import librosa
 import noisereduce as nr
 
 import tensorflow as tf
-import keras
-import sklearn
 from keras.models import model_from_json
 from keras.models import load_model
 
@@ -63,4 +60,5 @@ async def show_result(request: Request):
     folder_path = os.path.join(os.getcwd(), 'audio_repository')
 
     output = test()
+    
     return templates.TemplateResponse("result.html", {"request": request, "message": output, "path":folder_path})

@@ -5,6 +5,7 @@ const submitButton = document.getElementById('submit');
 const output = document.getElementById('output');
 let audioRecorder;
 let audioChunks = [];
+let audio;
 
 navigator.mediaDevices.getUserMedia({ audio: true })
 .then(stream => {
@@ -25,46 +26,49 @@ navigator.mediaDevices.getUserMedia({ audio: true })
     });
 
     playButton.addEventListener('click', () => {
-        const blobObj = new Blob(audioChunks, { type: 'audio/webm' });
+        
+        const blobObj = new Blob(audioChunks, { type: 'audio/wav' });
         const audioUrl = URL.createObjectURL(blobObj);
         const audio = new Audio(audioUrl);
+        
         audio.play();
         output.innerHTML = 'Playing the recorded audio!';
     });
 
     submitButton.addEventListener('click', () => {
-    const blobObj = new Blob(audioChunks, { type: 'audio/webm' });
-    console.log("Blob created:", blobObj);
+        audioRecorder.stop(); // Stop recording if it's still ongoing
 
-    const formData = new FormData();
-    formData.append('audio', blobObj);
-    console.log("FormData created:", formData);
+        // No need to convert to Blob since we're recording directly in .wav format
+        // Instead, submit the recorded audio directly
 
-    fetch('/process_audio', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        console.log("Response received:", response);
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Network response was not ok.');
-    })
-    .then(data => {
-        console.log("Response data:", data);
-        output.innerHTML = 'Audio submitted for processing!';
-        if(data){
-            window.location.href = '/result/';
-        }
-    })
-    .catch(error => {
-        console.error('There was a problem with your fetch operation:', error);
-        output.innerHTML = 'Error submitting audio for processing.';
+        const formData = new FormData();
+        formData.append('audio', audio); // Assuming we recorded only one chunk
+        console.log("FormData created:", formData);
+
+        fetch('/process_audio', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log("Response received:", response);
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(data => {
+            console.log("Response data:", data);
+            output.innerHTML = 'Audio submitted for processing!';
+            if(data){
+                window.location.href = '/result/';
+            }
+        })
+        .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+            output.innerHTML = 'Error submitting audio for processing.';
+        });
     });
-});
-    
-
-}).catch(err => {
+})
+.catch(err => {
     console.log('Error: ' + err);
 });

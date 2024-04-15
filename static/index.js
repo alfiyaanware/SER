@@ -1,4 +1,6 @@
 // Function to handle uploading audio files
+// from ogatowav import converttowav;
+
 function uploadFromFile() {
     const uploadInput = document.getElementById('uploadInput');
     const file = uploadInput.files[0];
@@ -6,7 +8,8 @@ function uploadFromFile() {
     if (file) {
         const formData = new FormData();
         formData.append('audio', file); // Ensure the field name matches the expected field name in the FastAPI endpoint
-
+        console.log("audio: ", audio);
+        
         fetch('/process_audio/', {
             method: 'POST',
             body: formData
@@ -19,7 +22,7 @@ function uploadFromFile() {
             }
         })
         .then(data => {
-            window.location.href = '/result/';
+            // window.location.href = '/result/';
         })
         .catch(error => console.error('Error:', error));
     } else {
@@ -32,4 +35,3 @@ function uploadFromFile() {
 function startRecording() {
     // Implement recording functionality here
 }
-

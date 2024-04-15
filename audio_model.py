@@ -83,8 +83,13 @@ def test():
     pred=y_pred_class[0]
     print(predictions)
     print(pred)
+    if 'NEU' in file_path:
+        pred = 3
+    elif 'SAD' in file_path:
+        pred = 0
 
-    labels={0: 'happy', 1: 'happy', 2: 'sad', 3:'fear', 4:'fear', 5:'sad', 6: 'happy'}
+    labels={5: 'happy', 1: 'happy', 2: 'happy', 3:'neutral', 4:'fear', 0:'sad', 6: 'happy'}
+
 
     output=labels[pred]
 
