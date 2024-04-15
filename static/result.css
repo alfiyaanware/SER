@@ -46,12 +46,11 @@ body{
     width: 500px;
     height: 100px;
     margin: auto;
-    display: flex;
-    justify-self: center;
+    /* display: flex; */
+    /* justify-self: center; */
 }
 
 .space{
-
     width: 500px;
     height: 100px;
     margin-top: 50px;
