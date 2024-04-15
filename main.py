@@ -27,9 +27,9 @@ def index(request: Request):
     return templates.TemplateResponse("index1.html", {"request": request})
 
 
-@app.get('/try', response_class=HTMLResponse)
+@app.get('/old', response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("try.html", {"request": request})
+    return templates.TemplateResponse("old.html", {"request": request})
 
 @app.get('/about', response_class=HTMLResponse)
 def index(request: Request):
