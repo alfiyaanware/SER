@@ -4,6 +4,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 import os
 import numpy as np
+from fastapi import FastAPI, Form, HTTPException
+from resemble import Resemble
+import requests
 
 from json_tricks import dump, load
 from audio_model import test
@@ -62,3 +65,47 @@ async def show_result(request: Request):
     output = test()
     
     return templates.TemplateResponse("result.html", {"request": request, "message": output, "path":folder_path})
+
+Resemble.api_key('yarlRYrBdHh4OU7IpP1S3gtt')
+
+@app.get("/tts")
+async def read_index():
+    with open("static/tts.html", "r") as f:
+        return HTMLResponse(content=f.read(), status_code=200)
+    
+@app.post("/generate_audio")
+async def generate_audio(sentence: str = Form(...)):
+    try:
+        # Get projects directly from response (assuming 'items' key holds projects)
+        response = Resemble.v2.projects.all(1, 10)
+        project_uuid = response['items'][0]['uuid']
+
+        # Get your Voice uuid. In this example, we'll obtain the first.
+        voice_uuid = Resemble.v2.voices.all(1, 10)['items'][0]['uuid']
+
+        # Let's create a clip!
+        body = sentence
+        response = Resemble.v2.clips.create_sync(project_uuid, voice_uuid, body)
+        print(response)
+
+        # Check for successful clip creation
+        if response.get('success') is True:
+            clip_data = response.get('item')
+            if clip_data:
+                audio_url = clip_data['audio_src']
+
+                # Download the audio using requests
+                response = requests.get(audio_url)
+
+                if response.status_code == 200:
+                    # Return the audio content
+                    return response.content
+                else:
+                    raise HTTPException(status_code=response.status_code, detail=f"Error downloading audio: {response.status_code}")
+            else:
+                raise HTTPException(status_code=500, detail="Error: No clip data found in response.")
+        else:
+            raise HTTPException(status_code=500, detail="Error creating clip. Check response for details.")
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
