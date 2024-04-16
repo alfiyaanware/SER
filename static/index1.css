@@ -57,9 +57,22 @@ body{
     font-size: 20px;
     font-family: Helvetica;
     font-weight: 700;
-    word-wrap: break-word"
-
+    word-wrap: break-word; 
 }
+
+
+.text2 {
+    position: absolute;
+    right: 150px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 20px;
+    font-family: Helvetica;
+    font-weight: 700;
+    word-wrap: break-word; 
+}
+
 .vl{
     margin-top:10px;
     border-left: 5px solid grey;
@@ -129,7 +142,9 @@ body{
   }
   
 .button1 {width: 275px; height: 100px;}
-
+.button2{
+    width: 200px; height: 60px; 
+}
 
 .space{
     margin-top: 30px;

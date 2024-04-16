@@ -57,7 +57,7 @@ const stopRecording = () => {
 const downloadAudio = () => {
     const downloadLink = document.createElement('a');
     downloadLink.href = audioURL;
-    downloadLink.setAttribute('download', 'audio.wav'); // Set the filename with .wav extension
+    downloadLink.setAttribute('download', 'MyVoice.wav'); 
     downloadLink.click();
 };
 
@@ -68,7 +68,14 @@ const addButton = (id, funString, text) => {
     btn.textContent = text;
     controllerWrapper.append(btn);
 };
-
+const addButton2 = (id, funString, text, className) => {
+    const btn = document.createElement('button');
+    btn.id = id;
+    btn.setAttribute('onclick', funString);
+    btn.textContent = text;
+    btn.classList.add(className);
+    controllerWrapper.append(btn);
+};
 const addMessage = (text) => {
     const msg = document.createElement('p');
     msg.textContent = text;

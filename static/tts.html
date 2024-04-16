@@ -13,7 +13,8 @@
 <body>
     <div class="header">
         <div class="vlogo"><image src="static/v-logo.png" style="width: 30px; height: 30px;"></image></div>
-        <div class="text">Voize</div>
+        <div class="text"><a style="color: white; text-decoration:none;" href="/">Voize</a></div>
+        <div class="text2"><a style="color: white; text-decoration:none;" href="/tts">Text to Speech</a></div>
         <div class="text1"><a style="color: white; text-decoration:none;" href="/about">About us</a></div>
     </div>
     <br><br>
@@ -23,11 +24,14 @@
     </center>
  
 <body>
-    <h1>Generate Audio</h1>
+    <center>
+
     <form action="/generate_audio" method="post">
         <label for="sentence">Enter your sentence:</label><br>
-        <input type="text" id="sentence" name="sentence"><br>
-        <button type="submit">Generate Audio</button>
+        <input style="width:300px; height:100px;" type="text" id="sentence" name="sentence"><br>
+        <br>
+        <button class="button button2" type="submit">Generate Audio</button>
     </form>
+</center>
 </body>
 </html>

@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, File, UploadFile
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import RedirectResponse
 import os
 import numpy as np
 from fastapi import FastAPI, Form, HTTPException
@@ -86,26 +87,44 @@ async def generate_audio(sentence: str = Form(...)):
         # Let's create a clip!
         body = sentence
         response = Resemble.v2.clips.create_sync(project_uuid, voice_uuid, body)
-        print(response)
+        print("Response: ", response)
+
 
         # Check for successful clip creation
         if response.get('success') is True:
             clip_data = response.get('item')
+
             if clip_data:
                 audio_url = clip_data['audio_src']
+                print(audio_url)
 
-                # Download the audio using requests
-                response = requests.get(audio_url)
-
-                if response.status_code == 200:
-                    # Return the audio content
-                    return response.content
-                else:
-                    raise HTTPException(status_code=response.status_code, detail=f"Error downloading audio: {response.status_code}")
-            else:
-                raise HTTPException(status_code=500, detail="Error: No clip data found in response.")
-        else:
-            raise HTTPException(status_code=500, detail="Error creating clip. Check response for details.")
+                # # Download the audio using requests
+                # response = requests.get(audio_url)
+                # print("response content", response.content)
+                # return RedirectResponse(url=audio_url)
+                return HTMLResponse(content=f"""
+                    <script>
+                        // Redirect to the audio URL
+                        window.location.href = '{audio_url}';
+                        // After 3 seconds, redirect back to the front page
+                        setTimeout(function() {{
+                            window.location.href = '/';
+                        }}, 3000); // 3000 milliseconds = 3 seconds
+                    </script>
+                """, status_code=200)
+        #         if response.status_code == 200:
+        #             # Return the audio content
+        #             return response.content
+        #         else:
+        #             raise HTTPException(status_code=response.status_code, detail=f"Error downloading audio: {response.status_code}")
+        #     else:
+        #         raise HTTPException(status_code=500, detail="Error: No clip data found in response.")
+        # else:
+        #     raise HTTPException(status_code=500, detail="Error creating clip. Check response for details.")
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # Handle exceptions here
+        print("Exception occurred:", e)
+        # Return an error response or redirect to an error page
+        # For example:
+        return RedirectResponse(url="/error")

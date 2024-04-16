@@ -6,7 +6,7 @@ Resemble.api_key('yarlRYrBdHh4OU7IpP1S3gtt')
 
 # Get projects directly from response (assuming 'items' key holds projects)
 response = Resemble.v2.projects.all(1, 10)
-print(response)  # Optional: To inspect the entire response
+# print(response)  # Optional: To inspect the entire response
 
 project_uuid = response['items'][0]['uuid']
 print(f"Project UUID: {project_uuid}")
@@ -18,10 +18,13 @@ print(f"Voice UUID: {voice_uuid}")
 # Let's create a clip!
 body = 'Chicken noodle soup with a soda'
 response = Resemble.v2.clips.create_sync(project_uuid, voice_uuid, body)
+print("Response: ", response)
 
 # Check for successful clip creation
 if response.get('success') is True:
     clip_data = response.get('item')
+    print("clip data", clip_data)
+
     if clip_data:
         audio_url = clip_data['audio_src']
         print(f"Audio source URL: {audio_url}")
