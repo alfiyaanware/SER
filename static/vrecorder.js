@@ -57,7 +57,7 @@ const stopRecording = () => {
 const downloadAudio = () => {
     const downloadLink = document.createElement('a');
     downloadLink.href = audioURL;
-    downloadLink.setAttribute('download', 'MyVoice.wav'); 
+    downloadLink.setAttribute('download', 'audio.wav'); // Set the filename with .wav extension
     downloadLink.click();
 };
 

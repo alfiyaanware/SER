@@ -22,7 +22,10 @@
     </div>
     <div class="div1">
         <h1>Processed Result</h1><br>
-        <p>The emotion we recognised is: {{message}} </p> <span id="emotionEmoji"></span>
+        <p>The emotion we recognised is: {{message}} </p> <span id="emotionEmoji"></span><br><br><br>
+
+        <h3>Transcription:</h1>
+        <p>{{text}}</p>
     </div>
     <script>
         // Get the message from the template
@@ -38,7 +41,7 @@
             } else if (message.includes('fear')) {
                 emojiElement.textContent = '😨'; // Fear emoji
             } else if (message.includes('neutral')) {
-                emojiElement.textContent = '😐'; // Fear emoji
+                emojiElement.textContent = '😐'; // Neutral emoji
             } else {
                 emojiElement.textContent = 'Unknown emotion'; // Default
             }

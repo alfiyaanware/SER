@@ -18,6 +18,8 @@ import tensorflow as tf
 from keras.models import model_from_json
 from keras.models import load_model
 
+from transcript import transcribe
+
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -63,9 +65,9 @@ async def show_result(request: Request):
     
     folder_path = os.path.join(os.getcwd(), 'audio_repository')
 
-    output = test()
+    output, result = test()
     
-    return templates.TemplateResponse("result.html", {"request": request, "message": output, "path":folder_path})
+    return templates.TemplateResponse("result.html", {"request": request, "message": output, "path":folder_path, "text": result})
 
 Resemble.api_key('yarlRYrBdHh4OU7IpP1S3gtt')
 
@@ -112,15 +114,7 @@ async def generate_audio(sentence: str = Form(...)):
                         }}, 3000); // 3000 milliseconds = 3 seconds
                     </script>
                 """, status_code=200)
-        #         if response.status_code == 200:
-        #             # Return the audio content
-        #             return response.content
-        #         else:
-        #             raise HTTPException(status_code=response.status_code, detail=f"Error downloading audio: {response.status_code}")
-        #     else:
-        #         raise HTTPException(status_code=500, detail="Error: No clip data found in response.")
-        # else:
-        #     raise HTTPException(status_code=500, detail="Error creating clip. Check response for details.")
+
 
     except Exception as e:
         # Handle exceptions here

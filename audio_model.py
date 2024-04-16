@@ -10,7 +10,7 @@ import tensorflow as tf
 from keras.models import model_from_json
 from keras.models import load_model
 
-
+from transcript import transcribe
 
 def test():
     total_length = 314818 
@@ -92,6 +92,7 @@ def test():
 
 
     output=labels[pred]
+    text= transcribe(file_path)
 
     os.remove(file_path)
-    return output
+    return output, text
