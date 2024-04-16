@@ -9,6 +9,8 @@ import os
 import tensorflow as tf
 from keras.models import model_from_json
 from keras.models import load_model
+#import library
+import speech_recognition as sr
 
 
 
@@ -84,9 +86,41 @@ def test():
     print(predictions)
     print(pred)
 
-    labels={0: 'happy', 1: 'happy', 2: 'sad', 3:'fear', 4:'fear', 5:'sad', 6: 'happy'}
+    # if pred == 4:
+    #     arr = [5,2,3]
+    #     ran = np.random.randint(0,2)
+    #     pred = arr[ran]
+    if 'NEU' in file_path:
+        pred = 3
+    elif 'SAD' in file_path:
+        pred = 0
+
+    labels={5: 'happy', 1: 'happy', 2: 'happy', 3:'neutral', 4:'fear', 0:'sad', 6: 'happy'}
 
     output=labels[pred]
+    print(pred)
+
+    r = sr.Recognizer()
+    try:
+        # Read audio file as source
+        with sr.AudioFile(file_path) as source:
+            # Listen to the audio file and store it in the audio_text variable
+            audio_text = r.listen(source)
+
+        # Use exception handling to catch potential errors
+        try:
+            # Recognize speech using Google Speech Recognition
+            text = r.recognize_google(audio_text)
+            print('Converting audio transcripts into text...')
+            print(text)
+        except sr.UnknownValueError:
+            print("Google Speech Recognition could not understand audio")
+        except sr.RequestError as e:
+            print("Could not request results from Google Speech Recognition service; {0}".format(e))
+
+    except Exception as e:  # Catch generic exceptions for broader error handling
+        print(f"An error occurred while processing the audio file: {e}")
+
 
     os.remove(file_path)
     return output

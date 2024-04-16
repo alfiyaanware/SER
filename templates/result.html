@@ -35,7 +35,9 @@
                 emojiElement.textContent = '😊'; // Happy emoji
             } else if (message.includes('fear')) {
                 emojiElement.textContent = '😨'; // Fear emoji
-            } else {
+            } else if(message.includes('neutral')){
+                emojiElement.textContent = '😐'; // Default
+            }else {
                 emojiElement.textContent = 'Unknown emotion'; // Default
             }
         }
