@@ -77,14 +77,20 @@ async def read_index():
         return HTMLResponse(content=f.read(), status_code=200)
     
 @app.post("/generate_audio")
-async def generate_audio(sentence: str = Form(...)):
+async def generate_audio(sentence: str = Form(...), voice: str = Form(...)):
     try:
         # Get projects directly from response (assuming 'items' key holds projects)
         response = Resemble.v2.projects.all(1, 10)
         project_uuid = response['items'][0]['uuid']
 
+        # Get your Voice uuid based on the selected voice
+        if voice == 'male':
+            voice_index = 1  # Index for male voice
+        elif voice == 'female':
+            voice_index = 2  # Index for female voice
+
         # Get your Voice uuid. In this example, we'll obtain the first.
-        voice_uuid = Resemble.v2.voices.all(1, 10)['items'][0]['uuid']
+        voice_uuid = Resemble.v2.voices.all(1, 10)['items'][voice_index]['uuid']
 
         # Let's create a clip!
         body = sentence
@@ -114,6 +120,7 @@ async def generate_audio(sentence: str = Form(...)):
                         }}, 3000); // 3000 milliseconds = 3 seconds
                     </script>
                 """, status_code=200)
+                # return templates.TemplateResponse("/static/tts.html", {"audio_url": audio_url})
 
 
     except Exception as e:

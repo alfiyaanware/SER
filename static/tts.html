@@ -26,12 +26,46 @@
 <body>
     <center>
 
-    <form action="/generate_audio" method="post">
+    <form action="/generate_audio" method="post" id="audioForm">
         <label for="sentence">Enter your sentence:</label><br>
         <input style="width:300px; height:100px;" type="text" id="sentence" name="sentence"><br>
+        <label for="voice">Select a voice:</label><br>
+        <select id="voice" name="voice">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select><br><br>
         <br>
         <button class="button button2" type="submit">Generate Audio</button>
     </form>
+
+    <!-- <button class="button button2" id = "btnHolder" onclick="download()">Download Audio</button> -->
+    <!-- <div id="output"></div> -->
 </center>
+
+<script>
+    document.getElementById('audioForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        fetch('/generate_audio', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('output').innerText = data;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('output').innerText = 'Error generating audio.';
+        });
+    });
+    // function addBtn(){
+    // document.getElementById('btnHolder').innerHTML = '<input type="button" onClick="removeBtn();" value="click" />';
+    // }
+
+    // function removeBtn(){
+    // document.getElementById('btnHolder').innerHTML = '';
+    // }
+</script>
 </body>
 </html>

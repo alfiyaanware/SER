@@ -22,7 +22,7 @@ function uploadFromFile() {
             }
         })
         .then(data => {
-            // window.location.href = '/result/';
+            window.location.href = '/result/';
         })
         .catch(error => console.error('Error:', error));
     } else {
