@@ -76,6 +76,11 @@ async def read_index():
     with open("static/tts.html", "r") as f:
         return HTMLResponse(content=f.read(), status_code=200)
     
+@app.get("/tts2")
+async def read_index():
+    with open("static/tts2.html", "r") as f:
+        return HTMLResponse(content=f.read(), status_code=200)
+    
 @app.post("/generate_audio")
 async def generate_audio(sentence: str = Form(...), voice: str = Form(...)):
     try:
@@ -117,7 +122,7 @@ async def generate_audio(sentence: str = Form(...), voice: str = Form(...)):
                         // After 3 seconds, redirect back to the front page
                         setTimeout(function() {{
                             window.location.href = '/';
-                        }}, 3000); // 3000 milliseconds = 3 seconds
+                        }}, 7000); // 3000 milliseconds = 3 seconds
                     </script>
                 """, status_code=200)
                 # return templates.TemplateResponse("/static/tts.html", {"audio_url": audio_url})

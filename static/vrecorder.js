@@ -61,14 +61,8 @@ const downloadAudio = () => {
     downloadLink.click();
 };
 
-const addButton = (id, funString, text) => {
-    const btn = document.createElement('button');
-    btn.id = id;
-    btn.setAttribute('onclick', funString);
-    btn.textContent = text;
-    controllerWrapper.append(btn);
-};
-const addButton2 = (id, funString, text, className) => {
+
+const addButton = (id, funString, text, className) => {
     const btn = document.createElement('button');
     btn.id = id;
     btn.setAttribute('onclick', funString);
@@ -95,7 +89,7 @@ const application = (index) => {
             clearDisplay();
             clearControls();
 
-            addButton('record', 'record()', 'Start Recording');
+            addButton('record', 'record()', 'Start Recording','button');
             break;
 
         case 'Record':
@@ -103,7 +97,7 @@ const application = (index) => {
             clearControls();
 
             addMessage('Recording...');
-            addButton('stop', 'stopRecording()', 'Stop Recording');
+            addButton('stop', 'stopRecording()', 'Stop Recording','button');
             break;
 
         case 'Download':
@@ -111,7 +105,7 @@ const application = (index) => {
             clearDisplay();
 
             addAudio();
-            addButton('record', 'record()', 'Record Again');
+            addButton('record', 'record()', 'Record Again','button');
             break;
 
         default:

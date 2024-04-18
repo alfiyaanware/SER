@@ -30,7 +30,7 @@ body{
 
 .vlogo{
     position: absolute;
-    left: 10px;
+    left: 20px;
     top: 50%;
     transform: translateY(-50%);
     word-wrap: break-word
@@ -38,7 +38,7 @@ body{
 
 .text {
     position: absolute;
-    left: 50px;
+    left: 60px;
     top: 50%;
     transform: translateY(-50%);
     color: white;
@@ -48,9 +48,9 @@ body{
     word-wrap: break-word
 }
 
-.text1 {
+.navbar {
     position: absolute;
-    right: 50px;
+    right: 30px;
     top: 50%;
     transform: translateY(-50%);
     color: white;
@@ -132,18 +132,25 @@ body{
     background-color:#5AA1A6; /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 15px 30px 15px 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+    border-radius: 12px;
+    width: 220px; height: 80px;
+    font-size: large;
+    font-weight: 600;
   }
   
-.button1 {width: 275px; height: 100px;}
+.button1 {width: 300px; height: 100px;}
 .button2{
-    width: 200px; height: 60px; 
+    width: 200px; height: 80px;margin-left: 50px; margin-top: 30px; 
+}
+.button3{
+    width: 200px; height: 80px; 
 }
 
 .space{

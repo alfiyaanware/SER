@@ -32,12 +32,18 @@
     <center>
 
     <form action="/generate_audio" method="post" id="audioForm">
-        <label style="font-weight: 600; font-size: 20px;" for="sentence">Enter the text</label><br>
+        <label style="font-weight: 600; font-size: 20px;" for="sentence" required>Enter the text</label><br>
         <input style="width:300px; height:100px;" type="text" id="sentence" name="sentence"><br><br>
         <label style="font-weight: 600; font-size: 20px; margin:0px 15px" for="voice">Select a voice:</label>
         <select class="custom-select custom-select-md" style="font-weight:600; width:120px" id="voice" name="voice" required>
             <option style="font-weight: 600; margin: 10px 0px;" value="male" selected>Male</option>
             <option style="font-weight: 600; margin: 10px 0px;" value="female">Female</option>
+        </select><br><br>
+
+        <label style="font-weight: 600; font-size: 20px; margin:0px 15px" for="emotion">Select emotion:</label>
+        <select class="custom-select custom-select-md" style="font-weight:600; width:120px" id="emotion" name="emotion" required>
+            <option style="font-weight: 600; margin: 10px 0px;" value="male" selected>emotion 1</option>
+            <option style="font-weight: 600; margin: 10px 0px;" value="female">emotion 2</option>
         </select><br><br>
         
         <br>

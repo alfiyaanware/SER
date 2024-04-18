@@ -14,8 +14,13 @@
     <div class="header">
         <div class="vlogo"><image src="static/v-logo.png" style="width: 30px; height: 30px;"></image></div>
         <div class="text"><a style="color: white; text-decoration:none;" href="/">Voize</a></div>
-        <div class="text2"><a style="color: white; text-decoration:none;" href="/tts">Text to Speech</a></div>
-        <div class="text1"><a style="color: white; text-decoration:none;" href="/about">About us</a></div>
+        <div class="navbar" style="position: absolute; flex-direction: row; row-gap: 50px; column-gap:30px;">
+            <a style="color: white; text-decoration:none;" href="/">Emotion Recogniser</a>
+            <a style="color: white; text-decoration:none;" href="/tts">Text to Speech</a>
+            <a style="color: white; text-decoration:none;" href="/about">About</a>
+
+        </div>
+        
     </div>
     <br><br>
     
@@ -25,11 +30,12 @@
   
 <div class="container">
     <div class="row">
-        <div class="col-sm-4">
-            <center>
-            <div class="display"></div>
-            <div class="controllers"></div>
-            </center>
+        <div class="col-sm-4" >
+            <div style="align-items: center; justify-content: center; justify-content: center; margin-top: 80px;"><center>
+                <div class="display"></div>
+                <div class="controllers"></div>
+                </center></div>
+            
         </div>
         
     <!-- <div class="col-sm-4">
@@ -51,8 +57,10 @@
     </div>     
     <div class="col-sm-4">
         <form id="uploadForm" enctype="multipart/form-data">
-        <div class="space"><button class="button button1"><input type="file" id="uploadInput" accept="audio/*"></button>
-        <div class="space"><button class="button button1" onclick="uploadFromFile()">Submit</button>
+        <div class="space" style="flex-direction: column; align-items: center; justify-items: center; gap: 50px;">
+            <button class="button button1"><div style="overflow: hidden; width: 240px;"><input type="file" id="uploadInput" accept="audio/*"></div></button>
+        
+            <button class="button button2" onclick="uploadFromFile()">Submit</button>
         </form>
                 
     </div>
