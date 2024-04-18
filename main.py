@@ -17,7 +17,7 @@ import noisereduce as nr
 import tensorflow as tf
 from keras.models import model_from_json
 from keras.models import load_model
-
+from tts2 import speech_text
 from transcript import transcribe
 
 app = FastAPI()
@@ -27,6 +27,10 @@ templates = Jinja2Templates(directory="templates")
 
 @app.get('/', response_class=HTMLResponse)
 def index(request: Request):
+    try:
+        os.remove("static/synthesized_audio.wav")
+    except Exception as e:
+        print("reset audio file")
     return templates.TemplateResponse("index1.html", {"request": request})
 
 
@@ -79,7 +83,42 @@ async def read_index():
 @app.get("/tts2")
 async def read_index():
     with open("static/tts2.html", "r") as f:
+        
         return HTMLResponse(content=f.read(), status_code=200)
+    
+@app.post("/generate_audio_2")
+async def read_index(sentence: str = Form(...), emotion: str = Form(...), voice: str = Form(...)):
+    try:
+        # os.remove("static/synthesized_audio.wav")
+        if voice == 'male':
+            voice_gender = 'en-US-DavisNeural	'  # Index for male voice
+        elif voice == 'female':
+            voice_gender = 'en-US-AriaNeural'  # Index for female voice
+        
+        print("inside main")
+        speech_text(emotion, sentence, voice_gender)
+
+        # if emotion == 'male':
+        #     voice_index = 'en-US-DavisNeural	'  # Index for male voice
+        # elif voice == 'female':
+        #     voice_index = 'en-US-AriaNeural'  # Index for female voice
+
+        return HTMLResponse(content=f"""
+                    <script>
+                        // Redirect to the audio URL
+                        window.location.href = '/tts2';
+                        // After 3 seconds, redirect back to the front page
+                    </script>
+                """, status_code=200)
+    
+    except Exception as e:
+    # Handle exceptions here
+        print("Exception occurred:", e)
+        # Return an error response or redirect to an error page
+        # For example:
+        return RedirectResponse(url="/error")
+    
+
     
 @app.post("/generate_audio")
 async def generate_audio(sentence: str = Form(...), voice: str = Form(...)):
